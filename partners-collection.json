@@ -1,0 +1,2029 @@
+{
+	"info": {
+		"_postman_id": "fb3b0c3c-5167-4279-9c66-8706e34a5ab4",
+		"name": "partner - automotion",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24610352",
+		"_collection_link": "https://speeding-equinox-575192.postman.co/workspace/Automa%25C3%25A7%25C3%25A3o-~cdc12f61-0975-41d1-8f9a-bb84805d147b/collection/24610352-fb3b0c3c-5167-4279-9c66-8706e34a5ab4?action=share&source=collection_link&creator=24610352"
+	},
+	"item": [
+		{
+			"name": "partners - Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"_id\",JSON.parse(responseBody)._id);\r",
+							"\r",
+							"pm.test(\"Check is companyName is True\", function () {\r",
+							"    pm.expect(pm.variables.get(\"CompanyName\")).to.eql(JSON.parse(responseBody).companyName);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check is responsibleName is True\", function () {\r",
+							"    pm.expect(pm.variables.get(\"ResponsibleName\")).to.eql(JSON.parse(responseBody).responsibleName);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check is mail is True\", function () {\r",
+							"    pm.expect(pm.variables.get(\"Mail\")).to.eql(JSON.parse(responseBody).mail);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Check is cnpj is True\", function () {\r",
+							"    pm.expect(pm.variables.get(\"Cnpj\")).to.eql(JSON.parse(responseBody).cnpj);\r",
+							"});\r",
+							"pm.test(\"Check is zipCode is True\", function () {\r",
+							"    pm.expect(pm.variables.get(\"ZipCode\")).to.eql(JSON.parse(responseBody).address[0].zipCode);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check is street is True\", function () {\r",
+							"    pm.expect(pm.variables.get(\"Street\")).to.eql(JSON.parse(responseBody).address[0].street);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check is district is True\", function () {\r",
+							"    pm.expect(pm.variables.get(\"District\")).to.eql(JSON.parse(responseBody).address[0].district);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check is addressNumber is True\", function () {\r",
+							"    pm.expect(parseInt(pm.variables.get(\"Number\")).toString()).to.eql(JSON.parse(responseBody).address[0].number);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Check is complement is True\", function () {\r",
+							"    pm.expect(pm.variables.get(\"Complement\")).to.eql(JSON.parse(responseBody).complement);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Check is state is True\", function () {\r",
+							"    pm.expect(pm.variables.get(\"Uf\")).to.eql(JSON.parse(responseBody).state);\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner/",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - companyName null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O campo 'nome da empresa' é obrigatório.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo Nome da companhia é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": null,\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - companyName empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O campo 'nome da empresa' é obrigatório.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo Nome da companhia é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - companyName caracter  limit exceeded",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Limite de caracteres excedido. É pemitido apenas 100 caracteres no campo Nome da empresa.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Limite de caracteres excedido. É pemitido apenas 100 caracteres no campo Nome da empresa.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - responsibleName null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O campo 'nome do responsável' é obrigatório.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo Nome do responsável é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": null,\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - responsibleName empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O campo 'nome do responsável' é obrigatório.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo Nome do responsável é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - responsibleName caracter  limit exceeded",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Limite de caracteres excedido. É pemitido apenas 100 caracteres no campo Nome do resposável.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Limite de caracteres excedido. É pemitido apenas 100 caracteres no campo Nome do responsável.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"Mala Semmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - responsibleName incomplete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Informe o nome completo do responsável.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Informe o nome completo do responsável.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"Mala\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - mail null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O campo e-mail é obrigatório.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo Email é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": null,\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - mail empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O campo e-mail é obrigatório.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo Email é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - mail incomplete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O e-mail informado é inválido. Informe um e-mail no formato [nome@dominio]\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O e-mail informado é inválido.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"mail.com.br\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - phone null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O campo 'telefone' é obrigatório.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo Telefone é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": null,\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - phone empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O campo 'telefone' é obrigatório.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo Telefone é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - phone incomplete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O telefone informado está em um formato inválido ou com caracteres a mais do que o permitido.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O telefone deve possuir de 9 a 15 caracteres.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"111111111111111111111111111\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - input letters in the phone field",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O telefone informado está em um formato inválido ou com caracteres a mais do que o permitido.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O Número de telefone deve conter apenas dígitos numéricos.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"27384123123123A\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - Cnpj null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O campo 'CNPJ' é obrigatório.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo CNPJ é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": null,\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - cnpj empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O campo 'CNPJ' é obrigatório.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo CNPJ é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - cnpj incomplete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"A quantidade de dígitos do CNPJ está incorreta.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"A quantidade de dígitos do CNPJ ideal é de 14.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"2345343433333\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - cnpj with letter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O CNPJ informado está no formato incorreto.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O CNPJ deve conter apenas dígitos numéricos.\",\r",
+							"    \"A quantidade de dígitos do CNPJ ideal é de 14.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"38475827383787A\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - zipCode null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O campo 'CEP' é obrigatório.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo 'CEP' é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": null,\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - zipCode empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O campo 'CEP' é obrigatório.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo 'CEP' é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - zipCode incomplete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O CEP informado é inválido.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo 'CEP' deve conter 8 dígitos\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"123123212\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - zipCode with letter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O CEP informado é inválido.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo 'CEP' deve conter 8 dígitos\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"12345-12A\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - city null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O campo 'cidade' é obrigatório.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo 'cidade' é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": null,\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - city empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O campo 'cidade' é obrigatório.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo 'cidade' é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - city incomplete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Limite de caracteres excedido. É pemitido apenas 50 caracteres no campo cidade.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo 'cidade' deve possuir no máximo 50 caracteres.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - city with number",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Não é permitido números no campo cidade. Escreva-o por extenso.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo 'cidade' só pode conter letras e os caracteres especiais 'ª', 'º', '‘' e '-'.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"Brásilia123\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - state null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O campo 'estado' é obrigatório.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo 'estado' é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": null,\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - state empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O campo 'estado' é obrigatório.\", function () {\r",
+							"    pm.expect(pm.response.text()).contains(\"O campo 'estado' é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - state incomplete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"//pm.test(\"Limite de caracteres excedido. É pemitido apenas 2 caracteres no campo estado ex: SP.\", function () {\r",
+							"    //pm.expect(pm.response.text()).to.include(\"Limite de caracteres excedido. É pemitido apenas 2 caracteres no campo estado ex: SP.\");\r",
+							"//});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"AAA\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - state incomplete with space",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Formato inválido, é pemitido 2 caracteres no campo estado ex: SP.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo 'estado' deve possuir 2 caracteres.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"A \",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - state with number",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Não é permitido números no campo estado. Escreva-o por extenso, abreviado em dois caracteres, exe: SP.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo 'estado' só pode conter letras maiúsculas\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"22\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - state with number and letter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Não é permitido números no campo estado. Escreva-o por extenso, abreviado em dois caracteres, exe: SP.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo 'estado' só pode conter letras maiúsculas\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"S2\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - District null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O campo 'bairro' é obrigatório.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo 'bairro' é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": null,\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - District empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O campo 'bairro' é obrigatório.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo 'bairro' é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - District incomplete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Limite de caracteres excedido. É pemitido apenas 50 caracteres no campo bairro.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo 'bairro' deve possuir no máximo 50 caracteres.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - street null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"O campo 'nome da rua' é obrigatório\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo 'logradouro' é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": null,\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - street empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Rua é obrigatório!\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo 'logradouro' é obrigatório.\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - street incomplete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Rua é obrigatório!\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo 'logradouro' é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"\",\r\n            \"number\": \"{{Number}}\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - number null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Caso o endereço não possua um número, favor informar S/N.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo 'número' é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": null,\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - number empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Caso o endereço não possua um número, favor informar S/N.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo 'número' é obrigatório.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - numbers field with letters only",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Formato inválido, o campo aceita números e letras. exemplo: 12A, 200B.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Formato inválido, o campo aceita números e letras. exemplo: 12A, 200B.\");\r",
+							"});*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"12AB\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - number incomplete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Limite de caracteres excedido. É pemitido apenas 10 caracteres no campo número.\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"O campo 'número' deve possuir no máximo 10 caracteres.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"11111111111\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partners - number complete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": \"{{CompanyName}}\",\r\n    \"responsibleName\": \"{{ResponsibleName}}\",\r\n    \"mail\": \"{{Mail}}\",\r\n    \"phone\": \"{{PhoneNumber}}\",\r\n    \"cnpj\": \"{{Cnpj}}\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"{{CountryName}}\",\r\n            \"zipCode\": \"{{ZipCode}}\",\r\n            \"city\": \"{{City}}\",\r\n            \"state\": \"{{State}}\",\r\n            \"district\": \"{{District}}\",\r\n            \"street\": \"{{Street}}\",\r\n            \"number\": \"12A\",\r\n            \"complement\": \"\"\r\n        }\r\n    ],\r\n    \"audit\": [\r\n        {\r\n            \"registrationDate\": \"\",\r\n            \"loginUser\": \"{{LoginUser}}\",\r\n            \"registration\": \"\"\r\n        }\r\n    ]\r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/partner",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"partner"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGVjYmM0ZDdlMjk4ODg1NGU0MDFmMzEiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRPLnZueVNpTXZMamdMWXN4cDcvYmtPV3NhNVJ4MWIxTnJwQ29vZENVdzBHbkRFcVJDamhORyIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoic2VndW5kYS1mZWlyYSwgMjgvMDgvMjAyMyAxMjoyNTowMSBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY0ZWNiYzRkN2UyOTg4ODU0ZTQwMWYzMiJ9XSwiX192IjowLCJpYXQiOjE2OTM0MzgzMDUsImV4cCI6MTY5MzUyNDcwNX0.99XC1pJ_wlET-TF5J3VIf1wNUG-s-lD8HFZBrN2qXhA",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "Authorization",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"",
+					"pm.environment.set(\"CompanyName\", pm.variables.replaceIn('{{$randomFirstName}}') + \" \" + pm.variables.replaceIn('{{$randomFirstName}}'));",
+					"pm.environment.set(\"ResponsibleName\", pm.variables.replaceIn('{{$randomFirstName}}'+ ' '+ '{{$randomLastName}}'));",
+					"pm.environment.set(\"Mail\", pm.variables.replaceIn('{{$randomEmail}}'))",
+					"",
+					"function phoneNumber() {",
+					"    let phone = '';",
+					"    const ddd  = ['11', '12', '13', '14', '15', '16', '17', '18', '19', '21', '22', '24', '27', '28', '31', '32', '33', '34', '35', '37', '38', '41', '42', '43', '44', '45', '46', '47', '48', '49', '51', '53', '54', '55', '61', '62', '63', '64', '65', '66', '67', '68', '69', '71', '73', '74', '75', '77', '79', '81', '82', '83', '84', '85', '86', '87', '88', '89', '91', '92', '93', '94', '95', '96', '97', '98', '99'];",
+					"    const random = Math.floor(Math.random() * ddd.length);",
+					"    for (let i = 0; i < 8; i++) {let random = Math.floor(Math.random() * 10);phone += random;}  ",
+					"    ",
+					"    return `(${\"0\"+random})${\"9\"+phone}`;",
+					"",
+					"}",
+					"",
+					"let numerosTelefone = [];",
+					"",
+					"function gerarNumero() {",
+					"  let numero = Math.floor(Math.random() * 9999999999);",
+					"  if (!numerosTelefone.includes(numero)) {",
+					"    numerosTelefone.push(numero);",
+					"    return numero;",
+					"  } else {",
+					"    gerarNumero();",
+					"  }",
+					"}",
+					"",
+					"pm.environment.set(\"PhoneNumber\", gerarNumero());",
+					"",
+					"function cnpj() {",
+					"    let cnpj = '';    ",
+					"    for (let i = 0; i < 14; i++) {let random = Math.floor(Math.random() * 10);cnpj += random;}   ",
+					"    return cnpj;",
+					"}",
+					"pm.environment.set(\"Cnpj\", cnpj())",
+					"",
+					"pm.environment.set(\"countryName\", pm.variables.replaceIn('{{$randomCountry}}'))",
+					"",
+					"function checkCountryName() {",
+					"    let randomCountry = pm.environment.get(\"countryName\");",
+					"    let country = \"BRASIL\"",
+					"    if (randomCountry.length < 50) {",
+					"        return randomCountry;",
+					"    } else {",
+					"        return country;",
+					"    }",
+					"}",
+					"pm.environment.set(\"CountryName\".replace(/['.\",´`]/g,\"\"), checkCountryName())",
+					"",
+					"let num5dig = 10000 + Math.floor(Math.random() * 89999)",
+					"pm.environment.set(\"ZipCode\", num5dig + \"000\");",
+					"",
+					"pm.environment.set(\"City\", pm.variables.replaceIn(('{{$randomCity}}')).replace(/['.\",´`-]/g,\"\"))",
+					"",
+					"",
+					"function state() {    ",
+					"    const state = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];",
+					"    const random = Math.floor(Math.random() * state.length);    ",
+					"    return state[random];",
+					"    }",
+					"    ",
+					"pm.environment.set(\"State\",state())",
+					"",
+					"function district() {    ",
+					"    const district = ['Centro', 'Jardim América', 'Higienópolis', 'Jardim Paulista', 'Vila Madalena', 'Jardim Botânico', 'Moema', 'Vila Olímpia', 'Vila Mariana', 'Pinheiros', 'Itaim Bibi', 'Santana', 'Grajaú', 'Perdizes', 'Lapa', 'Jardim Europa', 'Campo Belo', 'São Judas', 'Jardim Sul', 'Jardim da Saúde', 'Jaguaré', 'Vila Leopoldina', 'Morumbi'];    ",
+					"    const random = Math.floor(Math.random() * district.length);    ",
+					"    return district[random];",
+					"    }",
+					"pm.environment.set(\"District\",district())",
+					"",
+					"pm.environment.set(\"Street\", pm.variables.replaceIn('Rua '+'{{$randomStreetName}}'))",
+					"",
+					"pm.environment.set(\"Number\", pm.variables.replaceIn('{{$randomInt}}'))",
+					"",
+					"pm.environment.set(\"LoginUser\", pm.variables.replaceIn('{{$randomUserName}}'))",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
